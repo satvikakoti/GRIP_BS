@@ -1,1 +1,1 @@
-web: gunicorn plaindjango.wsgi:application --log-file -
+web: gunicorn GRIP_Banking_System.wsgi:application --log-file -
