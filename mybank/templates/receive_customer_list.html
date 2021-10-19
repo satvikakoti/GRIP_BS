@@ -1,0 +1,110 @@
+{% extends 'profile_base_layout.html' %}
+
+{% block headcontent %}
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Cinzel|PT+Serif');
+        
+        body {
+            background-color: floralwhite;
+        }
+        h2 {
+            font-family: "PT Serif";
+        }
+        h4 {
+            font-weight: 900;
+        }
+
+        #side_panel
+        {
+            font-size: 16px;
+            font-family: "Titillium Web";
+            background-color: rgb(170, 95, 57);
+            margin-top: -7px;
+            margin-left: -10px;
+            height: 540px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+        #curr_bal {
+            border: 4px solid;
+            border-radius: 100px;
+        }
+        
+        .side {
+            color: aliceblue;
+        }
+        .side:hover {
+            color: mediumaquamarine;
+        }
+        .warning {
+            color: yellow;
+        }
+        .danger {
+            color: #FF8723;
+            font-weight: 900;
+        }
+        .current {
+            border: 1px solid;
+            padding: 3px;
+        }
+        .curr_bal {
+            font-family: "Cinzel";
+            font-weight: 600;
+        }
+        
+        #side_panel::-webkit-scrollbar {
+            width: 7px;
+        }
+        #side_panel::-webkit-scrollbar:hover {
+            width: 12px;
+        }
+        #side_panel::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+    </style>
+{% endblock %}
+
+{% block bodycontent %}
+
+    <section id="welcome_post" class="col-9">
+        <h1>Hello! This is a list of available customers...</h1>
+        <p>  Please select any one user to whom you want to transfer money to.. </p>
+   <form action="{% url 'money_transfer' %}" method="post">
+            {% csrf_token %}
+    <table width="100%" border="2px">
+           <tr><th></th>
+           <th>Name</th>
+           <th>Gender</th>
+           <th>User name</th></tr>
+            {% for customer in customers %}
+                <tr>
+                    <td><input type="radio" name="myreceive" value="{{ customer.user_name }}" required></td>
+                    <td>
+                        {{ customer.name }}
+                    </td>
+                    <td>
+                        {{ customer.sex }}
+                    </td>
+                    <td>
+                        {{ customer.user_name }}
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+            <h3 style="font-weight: 300;">
+                <br>
+                Enter amount to be transferred in INR  <input type="text" name="amount" required>
+            </h3>
+       <br>
+<!--       <a href="{% url 'money_transfer' %}">Next</a>-->
+       <button type="submit" class="btn btn-danger">Next</button>
+   </form>
+</section>
+
+
+{% endblock %}
