@@ -13,10 +13,6 @@ my_receiver = ""
 
 account_number = 10000
 
-# def randomGen():
-#     # return a 6 digit random number
-#     return int(random.uniform(1000000, 9999999))
-
 
 def index(request):
     return render(request, "index.html")
@@ -83,8 +79,7 @@ def money_transfer(request):
             dest_user.balance = dest_user.balance + transfer_amount
         else:
             print("insufficient balance!")
-            messages.error(request, "Insufficient Balance!!")
-            return render(request, "index.html")
+            return render(request, "index.html", messages.error(request, "Insufficient Balance!!"))
 
             # Save the changes before redirecting
         models.Transfers.objects.create(account_number_id=curr_user.account_number,
